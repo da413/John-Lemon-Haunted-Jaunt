@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float turnSpeed = 20f;
+    int freezeNum;
+   
 
     Animator m_Animator;
     Rigidbody m_Rigidbody;
@@ -17,23 +20,33 @@ public class PlayerMovement : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_AudioSource = GetComponent<AudioSource>();
+        
     }
 
-    void FixedUpdate()
+    void FixedUpdate() 
     {
+        
+        
+       
+        
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
+       
         m_Movement.Set(horizontal, 0f, vertical);
         m_Movement.Normalize();
-
         bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0f);
         bool hasVerticalInput = !Mathf.Approximately(vertical, 0f);
         bool isWalking = hasHorizontalInput || hasVerticalInput;
+        
         m_Animator.SetBool("IsWalking", isWalking);
+        
 
+        
         if (isWalking)
         {
+           
+           
+           
             if (!m_AudioSource.isPlaying)
             {
                 m_AudioSource.Play();
