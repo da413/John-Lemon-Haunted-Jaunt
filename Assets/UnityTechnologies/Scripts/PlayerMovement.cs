@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public float turnSpeed = 20f;
     int freezeNum;
+
+    public ParticleDestroy shieldParticles;
    
 
     Animator m_Animator;

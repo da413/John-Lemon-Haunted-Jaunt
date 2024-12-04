@@ -8,24 +8,11 @@ using UnityEngine;
 public class ParticleDestroy : MonoBehaviour
 {
     public ParticleSystem JohnParticles;
-    
-
-   
+    public bool canAttack = true;
+    public AudioSource activateSound;
+    public AudioSource deactivateSound;
 
     bool attacked;
-    bool canAttack = true;
-
-     
-    
-    
-    void Start()
-    {
-
-       
-
-
-
-    }
     
 
     void Update()
@@ -34,14 +21,20 @@ public class ParticleDestroy : MonoBehaviour
         if (Input.GetKeyDown("space") && canAttack)
         {
             JohnParticles.Play();
+            activateSound.Play();
             attacked = true;
             canAttack = false;
         }  
         
     }
 
-    
-    
+    public void Activate()
+    {
+        activateSound.Play();
+        attacked = true;
+        JohnParticles.Play();
+    }
+
     void OnTriggerStay(Collider other)
     {
         //Debug.Log(other.name);
@@ -51,6 +44,7 @@ public class ParticleDestroy : MonoBehaviour
             other.gameObject.SetActive(false);
             attacked = false;
             JohnParticles.Stop();
+            deactivateSound.Play();
         }
           
      }
